@@ -1,4 +1,4 @@
 import './styles.sass';
-import { keyboard } from './keyboard/keyboard';
+import keyboard from './keyboard/keyboard';
 
 keyboard();
