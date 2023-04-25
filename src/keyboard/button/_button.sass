@@ -1,2 +1,29 @@
+$buttonHeight: 40px
+$smallButtonWidth: 40px
+  
 .basic-key
-  color: #e80c0c88
+  height: $buttonHeight
+  display: flex
+  justify-content: center
+  align-items: center
+
+  border: 1px solid black
+
+.letter,
+.number
+  width: $smallButtonWidth
+
+.backspace,
+.capslock,
+.shiftL
+  width: calc($smallButtonWidth * 2.5)
+
+.enter,
+.shiftR
+  width: calc($smallButtonWidth * 2 + $rowGap)
+
+.tab
+  width: calc($smallButtonWidth * 1.25)
+
+.del
+  width: calc($smallButtonWidth * 1.1)

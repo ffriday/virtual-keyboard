@@ -18,8 +18,8 @@ h2 {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  row-gap: 1%;
-  width: 1000px;
+  row-gap: 6px;
+  width: 721px;
   height: 100%;
   font-family: sans-serif;
 }
@@ -31,10 +31,41 @@ h2 {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 6px;
 }
 
 .basic-key {
-  color: rgba(232, 12, 12, 0.5333333333);
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+}
+
+.letter,
+.number {
+  width: 40px;
+}
+
+.backspace,
+.capslock,
+.shiftL {
+  width: 100px;
+}
+
+.enter,
+.shiftR {
+  width: 86px;
+}
+
+.tab {
+  width: 50px;
+}
+
+.del {
+  width: 44px;
 }
 
 body {

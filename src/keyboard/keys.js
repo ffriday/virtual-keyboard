@@ -96,6 +96,26 @@ const keys = [
     en: '=',
     enS: '+',
   },
+  // Backspace
+  {
+    type: 'system',
+    class: 'backspace',
+    ru: 'Backspace',
+    ruS: 'Backspace',
+    en: 'Backspace',
+    enS: 'Backspace',
+  },
+  // Row 2
+  // Tab
+  {
+    type: 'system',
+    class: 'tab',
+    ru: 'Tab',
+    ruS: 'Tab',
+    en: 'Tabe',
+    enS: 'Tab',
+  },
+
 ];
 
 export default keys;

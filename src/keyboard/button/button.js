@@ -8,7 +8,8 @@ class Button {
   }
 
   render() {
-    return elementFab('div', ['basic-key', this.key.type, this.key.class], this.key[this.lang]);
+    const cl = this.key.class ? this.key.class : this.key.type + this.key.en;
+    return elementFab('div', ['basic-key', this.key.type, cl], this.key[this.lang]);
   }
 
   handleEvent(shift, caps) {
