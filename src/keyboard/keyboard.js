@@ -3,7 +3,7 @@ import Button from './button/button';
 import keys from './keys';
 
 // Textarea size
-const textCols = '150';
+const textCols = '95';
 const textRows = '20';
 
 class Keyboard {

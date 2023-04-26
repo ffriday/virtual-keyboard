@@ -1,5 +1,5 @@
-$buttonHeight: 40px
-$smallButtonWidth: 40px
+// $buttonHeight: 40px
+// $smallButtonWidth: 40px
   
 .basic-key
   height: $buttonHeight
@@ -8,9 +8,16 @@ $smallButtonWidth: 40px
   align-items: center
 
   border: 1px solid black
+  // box-sizing: border-box
 
 .letter,
 .number
+  width: $smallButtonWidth
+
+.arrowUP,
+.arrowDOWN,
+.arrowLEFT,
+.arrowRIGHT
   width: $smallButtonWidth
 
 .backspace,
@@ -20,10 +27,21 @@ $smallButtonWidth: 40px
 
 .enter,
 .shiftR
-  width: calc($smallButtonWidth * 2 + $rowGap)
+  width: calc($smallButtonWidth * 2 + $rowGap * 1.3)
 
-.tab
+.tab,
+.slash
   width: calc($smallButtonWidth * 1.25)
 
 .del
-  width: calc($smallButtonWidth * 1.1)
+  width: calc($smallButtonWidth * 1.07)
+
+.ctrlL,
+.ctrlR,
+.altL,
+.altR,
+.win
+  width: $smallButtonWidth
+
+.space
+  width: calc($smallButtonWidth * 8 + $rowGap * 3)
