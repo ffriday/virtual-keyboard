@@ -38,6 +38,10 @@ h2 {
   gap: 6px;
 }
 
+.container__text {
+  outline: none;
+}
+
 .basic-key {
   height: 40px;
   display: flex;

@@ -48,16 +48,30 @@ class Keyboard {
 
   mouseDownHandler(event, env) {
     const type = event.target.classList[1];
+    const keyClass = event.target.classList[2];
     const { innerText } = event.target;
+    const { value } = this.text;
     event.target.classList.toggle('active'); // Add animation class
+    // Letters and numbers
     if (type === 'letter' || type === 'number') {
-      const { value } = this.text;
-      // const { selectionStart } = this.text;
-      // this.text.value += innerText;
       this.text.value = value.slice(0, this.cursor) + innerText + value.slice(this.cursor);
       this.cursor += 1;
     }
+    // Backspace
+    if (keyClass === 'backspace' && this.cursor > 0) {
+      this.text.value = value.slice(0, this.cursor - 1) + value.slice(this.cursor);
+      this.cursor = this.cursor > 0 ? this.cursor -= 1 : 0;
+    }
+    // Del
+    if (keyClass === 'del' && this.cursor < this.text.value.length) {
+      this.text.value = value.slice(0, this.cursor) + value.slice(this.cursor + 1);
+      this.cursor = this.cursor < this.text.value.length
+        ? this.cursor : this.text.value.length;
+    }
     event.target.classList.toggle('active'); // Remove animation class
+    this.text.focus();
+    this.text.selectionStart = this.cursor;
+    this.text.selectionEnd = this.cursor;
   }
 
   textClickHandler(event, env) {
@@ -74,6 +88,7 @@ class Keyboard {
 const keyboard = () => {
   const key = new Keyboard();
   key.render();
+  this.text.focus();
 };
 
 export default keyboard;
