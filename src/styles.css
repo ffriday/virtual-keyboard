@@ -26,8 +26,10 @@ h2 {
 
 .keyboard {
   width: 100%;
-  height: 236px;
+  height: 256px;
   background-color: #888888;
+  padding: 10px;
+  border-radius: 2px;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -41,7 +43,22 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid black;
+  border: 1px solid #000000;
+  border-radius: 2px;
+  box-shadow: 2px 2px #000000;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  transition: 100ms ease-out;
+}
+.basic-key:hover {
+  background-color: #a7a7a7;
+  transform: scale(1.03);
+  transition: 100ms ease-out;
+}
+.basic-key:active {
+  box-shadow: inset 2px 2px #000000;
 }
 
 .letter,
@@ -53,17 +70,20 @@ h2 {
 .arrowDOWN,
 .arrowLEFT,
 .arrowRIGHT {
+  background-color: #5f5f5f;
   width: 40px;
 }
 
 .backspace,
 .capslock,
 .shiftL {
+  background-color: #5f5f5f;
   width: 100px;
 }
 
 .enter,
 .shiftR {
+  background-color: #5f5f5f;
   width: 87.8px;
 }
 
@@ -72,8 +92,13 @@ h2 {
   width: 50px;
 }
 
+.tab {
+  background-color: #5f5f5f;
+}
+
 .del {
   width: 42.8px;
+  background-color: #5f5f5f;
 }
 
 .ctrlL,
@@ -82,6 +107,7 @@ h2 {
 .altR,
 .win {
   width: 40px;
+  background-color: #5f5f5f;
 }
 
 .space {

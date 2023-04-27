@@ -1,5 +1,6 @@
 // Container
-$containerWidth: 721px
+$containerPadding: 10px
+$containerWidth: calc(721px)
 $containerHeight: 100%
 $rowGap: 6px
 
@@ -7,7 +8,17 @@ $rowGap: 6px
 $buttonHeight: 40px
 $smallButtonWidth: 40px
 $keyWidth: 100%
-$keyHeight: calc($buttonHeight * 5 + $rowGap * 6)
+$keyHeight: calc($buttonHeight * 5 + $rowGap * 6 + $containerPadding * 2)
+$buttonBorderRadius: 2px
+
+// Colors
+$keyboardColor: #888888
+$buttonColor: #888888
+$buttonHoverColor: #a7a7a7
+$buttonActiveColor: green
+$buttonBorderColor: #000000
+$buttonShadowColor: #000000
+
 
 .container
   display: flex
@@ -22,7 +33,10 @@ $keyHeight: calc($buttonHeight * 5 + $rowGap * 6)
 .keyboard
   width: $keyWidth
   height: $keyHeight
-  background-color: #888888
+  background-color: $keyboardColor
+  padding: $containerPadding
+
+  border-radius: $buttonBorderRadius
 
   display: flex
   flex-direction: row
