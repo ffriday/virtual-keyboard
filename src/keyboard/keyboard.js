@@ -36,6 +36,7 @@ class Keyboard {
     this.key.append(...this.buttons.map((v) => v.render()));
     this.container.append(this.caption, this.text, this.key, this.info);
     this.root.append(this.container);
+    this.text.focus();
   }
 
   renderButtons(keyArray) {
@@ -47,31 +48,55 @@ class Keyboard {
   }
 
   mouseDownHandler(event, env) {
-    const type = event.target.classList[1];
-    const keyClass = event.target.classList[2];
-    const { innerText } = event.target;
-    const { value } = this.text;
-    event.target.classList.toggle('active'); // Add animation class
-    // Letters and numbers
-    if (type === 'letter' || type === 'number') {
-      this.text.value = value.slice(0, this.cursor) + innerText + value.slice(this.cursor);
-      this.cursor += 1;
+    if (event.target.classList[0] === 'basic-key') {
+      const type = event.target.classList[1];
+      const keyClass = event.target.classList[2];
+      const { innerText } = event.target;
+      const { value } = this.text;
+      event.target.classList.toggle('active'); // Add animation class
+      // Letters and numbers
+      if (type === 'letter' || type === 'number') {
+        this.addText(innerText);
+      }
+      // Backspace
+      if (keyClass === 'backspace' && this.cursor > 0) {
+        this.text.value = value.slice(0, this.cursor - 1) + value.slice(this.cursor);
+        this.cursor = this.cursor > 0 ? this.cursor -= 1 : 0;
+      }
+      // Del
+      if (keyClass === 'del' && this.cursor < this.text.value.length) {
+        this.text.value = value.slice(0, this.cursor) + value.slice(this.cursor + 1);
+        this.cursor = this.cursor < this.text.value.length
+          ? this.cursor : this.text.value.length;
+      }
+      // Enter
+      if (keyClass === 'enter') {
+        this.text.value += '\r\n';
+        this.cursor += 1;
+      }
+      // Tab
+      if (keyClass === 'tab') {
+        this.addText('    ');
+      }
+      // Space
+      if (keyClass === 'space') {
+        this.addText(' ');
+      }
+      // Arrows
+      if (keyClass.length > 'arrow'.length && keyClass.slice(0, 'arrow'.length) === 'arrow') {
+        this.addText(innerText);
+      }
+      event.target.classList.toggle('active'); // Remove animation class
+      this.text.focus();
+      this.text.selectionStart = this.cursor;
+      this.text.selectionEnd = this.cursor;
     }
-    // Backspace
-    if (keyClass === 'backspace' && this.cursor > 0) {
-      this.text.value = value.slice(0, this.cursor - 1) + value.slice(this.cursor);
-      this.cursor = this.cursor > 0 ? this.cursor -= 1 : 0;
-    }
-    // Del
-    if (keyClass === 'del' && this.cursor < this.text.value.length) {
-      this.text.value = value.slice(0, this.cursor) + value.slice(this.cursor + 1);
-      this.cursor = this.cursor < this.text.value.length
-        ? this.cursor : this.text.value.length;
-    }
-    event.target.classList.toggle('active'); // Remove animation class
-    this.text.focus();
-    this.text.selectionStart = this.cursor;
-    this.text.selectionEnd = this.cursor;
+  }
+
+  addText(text) {
+    this.text.value = this.text.value.slice(0, this.cursor)
+       + text + this.text.value.slice(this.cursor);
+    this.cursor += text.length;
   }
 
   textClickHandler(event, env) {
@@ -88,7 +113,6 @@ class Keyboard {
 const keyboard = () => {
   const key = new Keyboard();
   key.render();
-  this.text.focus();
 };
 
 export default keyboard;
