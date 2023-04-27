@@ -22,21 +22,34 @@ class Keyboard {
     this.key = elementFab('section', ['keyboard']);
     this.info = elementFab('h2', ['container__info'], 'Переключение языка Alt + Shift');
 
-    this.mouseDownEvent = this.key.addEventListener('click', (event) => (this.mouseDownHandler(event, this)));
+    // Mouse events
+    this.mouseClickEvent = this.key.addEventListener('click', (event) => (this.mouseClickHandler(event, this)));
+    // TODO add mouse down and mouse up events to handle shift properly
     this.textCliclEvent = this.text.addEventListener('click', (event) => (this.textClickHandler(event, this)));
 
-    // DEVELOPMENT
-    this.keyDownEvent = window.addEventListener('keydown', (event) => (this.kewDownHandler(event, this)));
+    // Keyboard events
+    this.keyDownEvent = window.addEventListener('keydown', (event) => (this.keyDownHandler(event)));
+    this.keyUpEvent = window.addEventListener('keyup', (event) => (this.keyUpHandler(event)));
   }
 
   render(parentElement = document.body) {
     // Render all elements
     this.root = parentElement;
     this.buttons = this.renderButtons(keys);
-    this.key.append(...this.buttons.map((v) => v.render()));
+    this.key.append(...this.buttons.map((v) => v.element));
     this.container.append(this.caption, this.text, this.key, this.info);
     this.root.append(this.container);
     this.text.focus();
+  }
+
+  changeKeys() {
+    const mode = this.shift || this.caps ? 'S' : '';
+    this.buttons = this.buttons.map((v) => {
+      const t = v;
+      console.log(t.element.innerText);
+      t.element.innerText = v.key[this.lang + mode];
+      return v;
+    });
   }
 
   renderButtons(keyArray) {
@@ -47,7 +60,7 @@ class Keyboard {
     return arr;
   }
 
-  mouseDownHandler(event, env) {
+  mouseClickHandler(event) {
     if (event.target.classList[0] === 'basic-key') {
       const type = event.target.classList[1];
       const keyClass = event.target.classList[2];
@@ -55,7 +68,7 @@ class Keyboard {
       const { value } = this.text;
       event.target.classList.toggle('active'); // Add animation class
       // Letters and numbers
-      if (type === 'letter' || type === 'number') {
+      if (type === 'letter') {
         this.addText(innerText);
       }
       // Backspace
@@ -86,6 +99,14 @@ class Keyboard {
       if (keyClass.length > 'arrow'.length && keyClass.slice(0, 'arrow'.length) === 'arrow') {
         this.addText(innerText);
       }
+      if (keyClass === 'capslock') {
+        this.caps = !this.caps;
+        this.changeKeys();
+      }
+      if (keyClass === 'shiftL' || keyClass === 'shiftR') {
+        this.shift = !this.shift;
+        this.changeKeys();
+      }
       event.target.classList.toggle('active'); // Remove animation class
       this.text.focus();
       this.text.selectionStart = this.cursor;
@@ -93,6 +114,7 @@ class Keyboard {
     }
   }
 
+  // Add text to textarea
   addText(text) {
     this.text.value = this.text.value.slice(0, this.cursor)
        + text + this.text.value.slice(this.cursor);
@@ -105,8 +127,24 @@ class Keyboard {
   }
 
   // DEVELOP FUNCTION
-  kewDownHandler(event, env) {
-    env.text.value += event.key;
+  keyDownHandler(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.shift = event.getModifierState('Shift');
+    this.caps = event.getModifierState('CapsLock');
+    let val = event.key.toLowerCase();
+    if (val.length === 1) {
+      this.addText(val);
+    }
+    this.changeKeys();
+  }
+
+  keyUpHandler(event) {
+    event.preventDefault();
+    event.stopPropagation();
+    this.shift = event.getModifierState('Shift');
+    this.caps = event.getModifierState('CapsLock');
+    this.changeKeys();
   }
 }
 
