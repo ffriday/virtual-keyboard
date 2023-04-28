@@ -61,11 +61,20 @@ class Keyboard {
   }
 
   // Shift and Caps handler
-  changeKeys() {
+  changeKeys(shiftUp = false) {
     this.changeMode();
+    const checkLetter = this.lang === 'ru' ? 'rl' : 'el';
     this.buttons = this.buttons.map((v) => {
       const t = v;
-      t.element.innerText = v.key[this.mode];
+      if (v.key[checkLetter]) {
+        t.element.innerText = v.key[this.mode];
+      } else if (this.shift) {
+        t.element.innerText = v.key[this.mode];
+        console.log('shift');
+      } else if (shiftUp) {
+        t.element.innerText = v.key[this.lang];
+        console.log('shiftUP', v.key[this.lang]);
+      }
       return v;
     });
   }
@@ -144,16 +153,33 @@ class Keyboard {
     e.cursor = this.text.selectionStart;
   }
 
-  // DEVELOP FUNCTION
+  getElement(event) {
+    const alt = {
+      Control: 'Ctrl',
+      AltGraph: 'Alt',
+      Meta: 'Win',
+      Delete: 'Del',
+      ArrowUp: '▲',
+      ArrowDown: '▼',
+      ArrowLeft: '◄',
+      ArrowRight: '►',
+    };
+    const loc = event.location === 0 ? 0 : event.location - 1;
+    const key = alt[event.key] ? alt[event.key] : event.key;
+    console.log(event.key, key, loc);
+    const { element } = this.buttons.filter((v) => v.key[this.mode] === key)[loc];
+    console.log(element);
+    return element;
+  }
+
   keyDownHandler(event) {
     event.preventDefault();
     event.stopPropagation();
     this.shift = event.getModifierState('Shift');
     this.caps = event.getModifierState('CapsLock');
     const val = event.key.toLowerCase();
-    // const. el = this.buttons.filter((v) => {
-    //   v.key[mode] === val;
-    // })
+    const element = this.getElement(event);
+    element.classList.add('active');
     if (val.length === 1) {
       this.addText(val);
     }
@@ -163,9 +189,12 @@ class Keyboard {
   keyUpHandler(event) {
     event.preventDefault();
     event.stopPropagation();
+    const shiftUp = this.shift;
     this.shift = event.getModifierState('Shift');
     this.caps = event.getModifierState('CapsLock');
-    this.changeKeys();
+    this.changeKeys(shiftUp);
+    const element = this.getElement(event);
+    element.classList.remove('active');
   }
 }
 

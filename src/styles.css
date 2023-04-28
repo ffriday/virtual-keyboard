@@ -63,6 +63,12 @@ h2 {
 }
 .basic-key:active {
   box-shadow: inset 2px 2px #000000;
+  transition: 100ms ease-out;
+}
+
+.active {
+  box-shadow: inset 2px 2px #000000;
+  transition: 100ms ease-out;
 }
 
 .letter,

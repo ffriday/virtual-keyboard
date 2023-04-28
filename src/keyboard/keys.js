@@ -7,6 +7,7 @@ const keys = [
     ruS: 'Ё',
     en: '`',
     enS: '~',
+    rl: true,
   },
   // Numbers
   {
@@ -112,44 +113,44 @@ const keys = [
     class: 'tab',
     ru: 'Tab',
     ruS: 'Tab',
-    en: 'Tabe',
+    en: 'Tab',
     enS: 'Tab',
   },
   {
-    type: 'letter', ru: 'й', ruS: 'Й', en: 'q', enS: 'Q',
+    type: 'letter', ru: 'й', ruS: 'Й', en: 'q', enS: 'Q', rl: true, el: true,
   },
   {
-    type: 'letter', ru: 'ц', ruS: 'Ц', en: 'w', enS: 'W',
+    type: 'letter', ru: 'ц', ruS: 'Ц', en: 'w', enS: 'W', rl: true, el: true,
   },
   {
-    type: 'letter', ru: 'у', ruS: 'У', en: 'e', enS: 'E',
+    type: 'letter', ru: 'у', ruS: 'У', en: 'e', enS: 'E', rl: true, el: true,
   },
   {
-    type: 'letter', ru: 'к', ruS: 'К', en: 'r', enS: 'R',
+    type: 'letter', ru: 'к', ruS: 'К', en: 'r', enS: 'R', rl: true, el: true,
   },
   {
-    type: 'letter', ru: 'е', ruS: 'Е', en: 't', enS: 'T',
+    type: 'letter', ru: 'е', ruS: 'Е', en: 't', enS: 'T', rl: true, el: true,
   },
   {
-    type: 'letter', ru: 'н', ruS: 'Н', en: 'y', enS: 'Y',
+    type: 'letter', ru: 'н', ruS: 'Н', en: 'y', enS: 'Y', rl: true, el: true,
   },
   {
-    type: 'letter', ru: 'г', ruS: 'Г', en: 'u', enS: 'U',
+    type: 'letter', ru: 'г', ruS: 'Г', en: 'u', enS: 'U', rl: true, el: true,
   },
   {
-    type: 'letter', ru: 'ш', ruS: 'Ш', en: 'i', enS: 'I',
+    type: 'letter', ru: 'ш', ruS: 'Ш', en: 'i', enS: 'I', rl: true, el: true,
   },
   {
-    type: 'letter', ru: 'щ', ruS: 'Щ', en: 'o', enS: 'O',
+    type: 'letter', ru: 'щ', ruS: 'Щ', en: 'o', enS: 'O', rl: true, el: true,
   },
   {
-    type: 'letter', ru: 'з', ruS: 'З', en: 'p', enS: 'P',
+    type: 'letter', ru: 'з', ruS: 'З', en: 'p', enS: 'P', rl: true, el: true,
   },
   {
-    type: 'letter', ru: 'х', ruS: 'Х', en: '[', enS: '{',
+    type: 'letter', ru: 'х', ruS: 'Х', en: '[', enS: '{', rl: true,
   },
   {
-    type: 'letter', ru: 'ъ', ruS: 'Ъ', en: ']', enS: '}',
+    type: 'letter', ru: 'ъ', ruS: 'Ъ', en: ']', enS: '}', rl: true,
   },
   // Slash
   {
@@ -179,37 +180,37 @@ const keys = [
     enS: 'CapsLock',
   },
   {
-    type: 'letter', ru: 'ф', ruS: 'Ф', en: 'a', enS: 'A',
+    type: 'letter', ru: 'ф', ruS: 'Ф', en: 'a', enS: 'A', rl: true, el: true,
   },
   {
-    type: 'letter', ru: 'ы', ruS: 'Ы', en: 's', enS: 'S',
+    type: 'letter', ru: 'ы', ruS: 'Ы', en: 's', enS: 'S', rl: true, el: true,
   },
   {
-    type: 'letter', ru: 'в', ruS: 'В', en: 'd', enS: 'D',
+    type: 'letter', ru: 'в', ruS: 'В', en: 'd', enS: 'D', rl: true, el: true,
   },
   {
-    type: 'letter', ru: 'а', ruS: 'А', en: 'f', enS: 'F',
+    type: 'letter', ru: 'а', ruS: 'А', en: 'f', enS: 'F', rl: true, el: true,
   },
   {
-    type: 'letter', ru: 'п', ruS: 'П', en: 'g', enS: 'G',
+    type: 'letter', ru: 'п', ruS: 'П', en: 'g', enS: 'G', rl: true, el: true,
   },
   {
-    type: 'letter', ru: 'р', ruS: 'Р', en: 'h', enS: 'H',
+    type: 'letter', ru: 'р', ruS: 'Р', en: 'h', enS: 'H', rl: true, el: true,
   },
   {
-    type: 'letter', ru: 'о', ruS: 'О', en: 'j', enS: 'J',
+    type: 'letter', ru: 'о', ruS: 'О', en: 'j', enS: 'J', rl: true, el: true,
   },
   {
-    type: 'letter', ru: 'л', ruS: 'Л', en: 'k', enS: 'K',
+    type: 'letter', ru: 'л', ruS: 'Л', en: 'k', enS: 'K', rl: true, el: true,
   },
   {
-    type: 'letter', ru: 'д', ruS: 'Д', en: 'l', enS: 'L',
+    type: 'letter', ru: 'д', ruS: 'Д', en: 'l', enS: 'L', rl: true, el: true,
   },
   {
-    type: 'letter', ru: 'ж', ruS: 'Ж', en: ';', enS: ':',
+    type: 'letter', ru: 'ж', ruS: 'Ж', en: ';', enS: ':', rl: true, el: true,
   },
   {
-    type: 'letter', ru: 'э', ruS: 'Э', en: "'", enS: '"',
+    type: 'letter', ru: 'э', ruS: 'Э', en: "'", enS: '"', rl: true,
   },
   // Enter
   {
@@ -217,7 +218,7 @@ const keys = [
     class: 'enter',
     ru: 'Enter',
     ruS: 'Enter',
-    en: 'Enterk',
+    en: 'Enter',
     enS: 'Enter',
   },
   // Row 4
@@ -231,31 +232,31 @@ const keys = [
     enS: 'Shift',
   },
   {
-    type: 'letter', ru: 'я', ruS: 'Я', en: 'z', enS: 'Z',
+    type: 'letter', ru: 'я', ruS: 'Я', en: 'z', enS: 'Z', rl: true, el: true,
   },
   {
-    type: 'letter', ru: 'ч', ruS: 'Ч', en: 'x', enS: 'X',
+    type: 'letter', ru: 'ч', ruS: 'Ч', en: 'x', enS: 'X', rl: true, el: true,
   },
   {
-    type: 'letter', ru: 'с', ruS: 'С', en: 'c', enS: 'C',
+    type: 'letter', ru: 'с', ruS: 'С', en: 'c', enS: 'C', rl: true, el: true,
   },
   {
-    type: 'letter', ru: 'м', ruS: 'М', en: 'v', enS: 'V',
+    type: 'letter', ru: 'м', ruS: 'М', en: 'v', enS: 'V', rl: true, el: true,
   },
   {
-    type: 'letter', ru: 'и', ruS: 'И', en: 'b', enS: 'B',
+    type: 'letter', ru: 'и', ruS: 'И', en: 'b', enS: 'B', rl: true, el: true,
   },
   {
-    type: 'letter', ru: 'т', ruS: 'Т', en: 'n', enS: 'N',
+    type: 'letter', ru: 'т', ruS: 'Т', en: 'n', enS: 'N', rl: true, el: true,
   },
   {
-    type: 'letter', ru: 'ь', ruS: 'Ь', en: 'm', enS: 'M',
+    type: 'letter', ru: 'ь', ruS: 'Ь', en: 'm', enS: 'M', rl: true, el: true,
   },
   {
-    type: 'letter', ru: 'б', ruS: 'Б', en: ',', enS: '<',
+    type: 'letter', ru: 'б', ruS: 'Б', en: ',', enS: '<', rl: true,
   },
   {
-    type: 'letter', ru: 'ю', ruS: 'Ю', en: '.', enS: '>',
+    type: 'letter', ru: 'ю', ruS: 'Ю', en: '.', enS: '>', rl: true,
   },
   {
     type: 'letter', ru: '.', ruS: ',', en: '/', enS: '?',
@@ -301,7 +302,7 @@ const keys = [
     ru: 'Alt',
     ruS: 'Alt',
     en: 'Alt',
-    enS: 'WAlt',
+    enS: 'Alt',
   },
   {
     type: 'system',
@@ -317,7 +318,7 @@ const keys = [
     ru: 'Alt',
     ruS: 'Alt',
     en: 'Alt',
-    enS: 'WAlt',
+    enS: 'Alt',
   },
   {
     type: 'system',
