@@ -11,6 +11,7 @@ class Keyboard {
     this.lang = language; // lang = ru || en
     this.shift = false;
     this.caps = false;
+    this.mode = language;
     this.cursor = 0;
 
     // Main elements
@@ -42,12 +43,29 @@ class Keyboard {
     this.text.focus();
   }
 
+  // Shift and Caps mode
+  changeMode() {
+    if (this.shift) {
+      if (this.caps) {
+        this.mode = this.lang;
+      } else {
+        this.mode = `${this.lang}${'S'}`;
+      }
+    } else if (!this.shift) {
+      if (this.caps) {
+        this.mode = `${this.lang}${'S'}`;
+      } else {
+        this.mode = this.lang;
+      }
+    }
+  }
+
+  // Shift and Caps handler
   changeKeys() {
-    const mode = this.shift || this.caps ? 'S' : '';
+    this.changeMode();
     this.buttons = this.buttons.map((v) => {
       const t = v;
-      console.log(t.element.innerText);
-      t.element.innerText = v.key[this.lang + mode];
+      t.element.innerText = v.key[this.mode];
       return v;
     });
   }
@@ -68,7 +86,7 @@ class Keyboard {
       const { value } = this.text;
       event.target.classList.toggle('active'); // Add animation class
       // Letters and numbers
-      if (type === 'letter') {
+      if (type === 'letter' || type === 'number') {
         this.addText(innerText);
       }
       // Backspace
@@ -132,7 +150,10 @@ class Keyboard {
     event.stopPropagation();
     this.shift = event.getModifierState('Shift');
     this.caps = event.getModifierState('CapsLock');
-    let val = event.key.toLowerCase();
+    const val = event.key.toLowerCase();
+    // const. el = this.buttons.filter((v) => {
+    //   v.key[mode] === val;
+    // })
     if (val.length === 1) {
       this.addText(val);
     }
