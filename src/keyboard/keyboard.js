@@ -13,6 +13,9 @@ class Keyboard {
     this.caps = false;
     this.mode = language;
     this.cursor = 0;
+    this.hintText = `Если язык клавиатуры не совпадает с языком в системе - 
+        после начала воода с клавиатуры язык изменится. 
+        Поддерживаемые раскладки: русская, английская`;
 
     // Main elements
     this.container = elementFab('main', ['container']);
@@ -21,7 +24,8 @@ class Keyboard {
     this.text.cols = textCols;
     this.text.rows = textRows;
     this.key = elementFab('section', ['keyboard']);
-    this.info = elementFab('h2', ['container__info'], 'Переключение языка Ctrl + Alt');
+    this.info = elementFab('h2', ['container__info'], 'Переключение языка left Shift + Alt');
+    this.hint = elementFab('span', ['container__hint'], this.hintText);
 
     // Mouse events
     this.mouseClickEvent = this.key.addEventListener('click', (event) => (this.mouseClickHandler(event, this)));
@@ -38,7 +42,7 @@ class Keyboard {
     this.root = parentElement;
     this.buttons = this.renderButtons(keys);
     this.key.append(...this.buttons.map((v) => v.element));
-    this.container.append(this.caption, this.text, this.key, this.info);
+    this.container.append(this.caption, this.text, this.key, this.info, this.hint);
     this.root.append(this.container);
 
     this.elCaps = this.key.querySelector('.capslock');
@@ -68,6 +72,7 @@ class Keyboard {
   // Shift and Caps handler
   changeKeys(caps) {
     this.changeMode();
+    window.localStorage.setItem('lang', this.lang);
     const checkLetter = this.lang === 'ru' ? 'rl' : 'el';
     this.buttons = this.buttons.map((v) => {
       const t = v;
@@ -235,12 +240,12 @@ class Keyboard {
     // Change language
     if (event.key === 'Alt' && event.location === 1) {
       console.log(event.key);
-      if (event.getModifierState('Control')) {
+      if (event.getModifierState('Shift')) {
         this.lang = this.lang === 'ru' ? 'en' : 'ru';
         this.changeKeys();
       }
     }
-    if (event.key === 'Control' && event.location === 1) {
+    if (event.key === 'Shift' && event.location === 1) {
       console.log(event.key);
       if (event.getModifierState('Alt')) {
         this.lang = this.lang === 'ru' ? 'en' : 'ru';
@@ -251,7 +256,11 @@ class Keyboard {
 }
 
 const keyboard = () => {
-  const key = new Keyboard();
+  let lang = 'ru';
+  if (window.localStorage.getItem('lang')) {
+    lang = window.localStorage.getItem('lang');
+  }
+  const key = new Keyboard(lang);
   key.render();
 };
 
