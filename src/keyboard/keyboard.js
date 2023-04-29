@@ -28,8 +28,7 @@ class Keyboard {
     this.hint = elementFab('span', ['container__hint'], this.hintText);
 
     // Mouse events
-    this.mouseClickEvent = this.key.addEventListener('click', (event) => (this.mouseClickHandler(event, this)));
-    // TODO add mouse down and mouse up events to handle shift properly
+    this.mouseClickEvent = this.key.addEventListener('click', (event) => (this.mouseClickHandler(event)));
     this.textCliclEvent = this.text.addEventListener('click', (event) => (this.textClickHandler(event, this)));
 
     // Keyboard events
@@ -137,8 +136,9 @@ class Keyboard {
       }
       // Enter
       if (keyClass === 'enter') {
-        this.text.value += '\r\n';
-        this.cursor += 1;
+        // this.text.value += '\r\n';
+        // this.cursor += 1;
+        this.addText('\r\n', 1);
       }
       // Tab
       if (keyClass === 'tab') {
@@ -172,10 +172,11 @@ class Keyboard {
   }
 
   // Add text to textarea
-  addText(text) {
+  addText(text, len = 0) {
+    const l = len || text.length;
     this.text.value = this.text.value.slice(0, this.cursor)
        + text + this.text.value.slice(this.cursor);
-    this.cursor += text.length;
+    this.cursor += l;
   }
 
   textClickHandler(event, env) {
@@ -215,13 +216,10 @@ class Keyboard {
     event.stopPropagation();
     this.shift = event.getModifierState('Shift');
     this.caps = event.getModifierState('CapsLock');
-    const val = event.key.toLowerCase();
     const element = this.getElement(event);
     if (element) {
       element.classList.add('active');
-      if (val.length === 1) {
-        this.addText(val);
-      }
+      element.click();
       this.changeKeys(event.key === 'CapsLock');
     }
   }
@@ -239,14 +237,12 @@ class Keyboard {
 
     // Change language
     if (event.key === 'Alt' && event.location === 1) {
-      console.log(event.key);
       if (event.getModifierState('Shift')) {
         this.lang = this.lang === 'ru' ? 'en' : 'ru';
         this.changeKeys();
       }
     }
     if (event.key === 'Shift' && event.location === 1) {
-      console.log(event.key);
       if (event.getModifierState('Alt')) {
         this.lang = this.lang === 'ru' ? 'en' : 'ru';
         this.changeKeys();
