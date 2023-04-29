@@ -166,10 +166,17 @@ class Keyboard {
     };
     const loc = event.location === 0 ? 0 : event.location - 1;
     const key = alt[event.key] ? alt[event.key] : event.key;
+    let element = null;
     console.log(event.key, key, loc);
-    const { element } = this.buttons.filter((v) => v.key[this.mode] === key)[loc];
-    console.log(element);
-    return element;
+    if (this.buttons.filter((v) => v.key[this.mode] === key).length) {
+      element = this.buttons.filter((v) => v.key[this.mode] === key)[loc];
+    } else {
+      this.lang = this.lang === 'ru' ? 'en' : 'ru';
+      this.changeKeys();
+      element = this.buttons.filter((v) => v.key[this.mode] === key)[loc];
+    }
+    console.log(element.element);
+    return element.element;
   }
 
   keyDownHandler(event) {
