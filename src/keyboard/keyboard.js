@@ -61,19 +61,22 @@ class Keyboard {
   }
 
   // Shift and Caps handler
-  changeKeys(shiftUp = false) {
+  changeKeys(caps) {
     this.changeMode();
     const checkLetter = this.lang === 'ru' ? 'rl' : 'el';
     this.buttons = this.buttons.map((v) => {
       const t = v;
-      if (v.key[checkLetter]) {
-        t.element.innerText = v.key[this.mode];
-      } else if (this.shift) {
-        t.element.innerText = v.key[this.mode];
-        console.log('shift');
-      } else if (shiftUp) {
-        t.element.innerText = v.key[this.lang];
-        console.log('shiftUP', v.key[this.lang]);
+      if (caps) {
+        if (v.key[checkLetter]) {
+          t.element.innerText = v.key[this.mode];
+        }
+      } else {
+        const mode = this.shift ? `${this.lang}S` : this.lang;
+        if (v.key[checkLetter]) {
+          t.element.innerText = v.key[this.mode];
+        } else {
+          t.element.innerText = v.key[mode];
+        }
       }
       return v;
     });
@@ -128,7 +131,7 @@ class Keyboard {
       }
       if (keyClass === 'capslock') {
         this.caps = !this.caps;
-        this.changeKeys();
+        this.changeKeys(true);
       }
       if (keyClass === 'shiftL' || keyClass === 'shiftR') {
         this.shift = !this.shift;
@@ -167,16 +170,18 @@ class Keyboard {
     const loc = event.location === 0 ? 0 : event.location - 1;
     const key = alt[event.key] ? alt[event.key] : event.key;
     let element = null;
-    console.log(event.key, key, loc);
     if (this.buttons.filter((v) => v.key[this.mode] === key).length) {
       element = this.buttons.filter((v) => v.key[this.mode] === key)[loc];
     } else {
-      this.lang = this.lang === 'ru' ? 'en' : 'ru';
-      this.changeKeys();
-      element = this.buttons.filter((v) => v.key[this.mode] === key)[loc];
+      try {
+        this.lang = this.lang === 'ru' ? 'en' : 'ru';
+        this.changeKeys();
+        element = this.buttons.filter((v) => v.key[this.mode] === key)[loc];
+      } catch {
+        this.container.append(elementFab('p', [], 'Error: change keyboard layot to english or russian.'));
+      }
     }
-    console.log(element.element);
-    return element.element;
+    return element ? element.element : null;
   }
 
   keyDownHandler(event) {
@@ -186,22 +191,26 @@ class Keyboard {
     this.caps = event.getModifierState('CapsLock');
     const val = event.key.toLowerCase();
     const element = this.getElement(event);
-    element.classList.add('active');
-    if (val.length === 1) {
-      this.addText(val);
+    if (element) {
+      element.classList.add('active');
+      if (val.length === 1) {
+        this.addText(val);
+      }
     }
-    this.changeKeys();
+    this.changeKeys(event.key === 'CapsLock');
   }
 
   keyUpHandler(event) {
     event.preventDefault();
     event.stopPropagation();
-    const shiftUp = this.shift;
+    // const shiftUp = this.shift;
     this.shift = event.getModifierState('Shift');
     this.caps = event.getModifierState('CapsLock');
-    this.changeKeys(shiftUp);
+    this.changeKeys(event.key === 'CapsLock');
     const element = this.getElement(event);
-    element.classList.remove('active');
+    if (element) {
+      element.classList.remove('active');
+    }
   }
 }
 
