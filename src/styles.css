@@ -124,6 +124,10 @@ h2 {
   width: 338px;
 }
 
+.stick {
+  background-color: #35601f;
+}
+
 body {
   display: flex;
   justify-content: center;

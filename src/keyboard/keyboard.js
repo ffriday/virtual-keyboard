@@ -21,7 +21,7 @@ class Keyboard {
     this.text.cols = textCols;
     this.text.rows = textRows;
     this.key = elementFab('section', ['keyboard']);
-    this.info = elementFab('h2', ['container__info'], 'Переключение языка Alt + Shift');
+    this.info = elementFab('h2', ['container__info'], 'Переключение языка Ctrl + Alt');
 
     // Mouse events
     this.mouseClickEvent = this.key.addEventListener('click', (event) => (this.mouseClickHandler(event, this)));
@@ -40,6 +40,11 @@ class Keyboard {
     this.key.append(...this.buttons.map((v) => v.element));
     this.container.append(this.caption, this.text, this.key, this.info);
     this.root.append(this.container);
+
+    this.elCaps = this.key.querySelector('.capslock');
+    this.elShiftL = this.key.querySelector('.shiftL');
+    this.elShiftR = this.key.querySelector('.shiftR');
+
     this.text.focus();
   }
 
@@ -80,6 +85,19 @@ class Keyboard {
       }
       return v;
     });
+
+    if (this.shift) {
+      this.elShiftL.classList.add('stick');
+      this.elShiftR.classList.add('stick');
+    } else {
+      this.elShiftL.classList.remove('stick');
+      this.elShiftR.classList.remove('stick');
+    }
+    if (this.caps) {
+      this.elCaps.classList.add('stick');
+    } else {
+      this.elCaps.classList.remove('stick');
+    }
   }
 
   renderButtons(keyArray) {
@@ -135,6 +153,10 @@ class Keyboard {
       }
       if (keyClass === 'shiftL' || keyClass === 'shiftR') {
         this.shift = !this.shift;
+        this.changeKeys();
+      }
+      if (keyClass !== 'shiftL' && keyClass !== 'shiftR') {
+        this.shift = false;
         this.changeKeys();
       }
       event.target.classList.toggle('active'); // Remove animation class
@@ -202,13 +224,28 @@ class Keyboard {
   keyUpHandler(event) {
     event.preventDefault();
     event.stopPropagation();
-    // const shiftUp = this.shift;
     this.shift = event.getModifierState('Shift');
     this.caps = event.getModifierState('CapsLock');
     this.changeKeys(event.key === 'CapsLock');
     const element = this.getElement(event);
     if (element) {
       element.classList.remove('active');
+    }
+
+    // Change language
+    if (event.key === 'Alt' && event.location === 1) {
+      console.log(event.key);
+      if (event.getModifierState('Control')) {
+        this.lang = this.lang === 'ru' ? 'en' : 'ru';
+        this.changeKeys();
+      }
+    }
+    if (event.key === 'Control' && event.location === 1) {
+      console.log(event.key);
+      if (event.getModifierState('Alt')) {
+        this.lang = this.lang === 'ru' ? 'en' : 'ru';
+        this.changeKeys();
+      }
     }
   }
 }
