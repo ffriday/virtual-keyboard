@@ -14,8 +14,9 @@ class Keyboard {
     this.mode = language;
     this.cursor = 0;
     this.hintText = `Если язык клавиатуры не совпадает с языком в системе - 
-        после начала воода с клавиатуры язык изменится. 
-        Поддерживаемые раскладки: русская, английская`;
+        после начала воода с клавиатуры язык изменится.
+        При нажатии мышкой Shift залипает, после нажатия символа - отлипает (как в телефоне). 
+        Поддерживаемые раскладки: русская, английская.`;
 
     // Main elements
     this.container = elementFab('main', ['container']);
@@ -222,6 +223,10 @@ class Keyboard {
     if (element) {
       this.mouseClickHandler(element);
       this.changeKeys(event.key === 'CapsLock');
+    }
+    // AltGraph problem
+    if (this.key.querySelector('.altR').classList.contains('active')) {
+      this.key.querySelector('.ctrlL').classList.remove('active');
     }
   }
 
