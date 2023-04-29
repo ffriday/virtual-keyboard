@@ -225,7 +225,7 @@ class Keyboard {
       this.changeKeys(event.key === 'CapsLock');
     }
     // AltGraph problem
-    if (this.key.querySelector('.altR').classList.contains('active')) {
+    if (event.key === 'AltGraph') {
       this.key.querySelector('.ctrlL').classList.remove('active');
     }
   }
