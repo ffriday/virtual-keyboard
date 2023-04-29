@@ -173,12 +173,11 @@ class Keyboard {
     if (this.buttons.filter((v) => v.key[this.mode] === key).length) {
       element = this.buttons.filter((v) => v.key[this.mode] === key)[loc];
     } else {
-      try {
-        this.lang = this.lang === 'ru' ? 'en' : 'ru';
-        this.changeKeys();
+      const tempMode = this.lang === 'ru' ? 'en' : 'ru';
+      if (this.buttons.filter((v) => v.key[tempMode] === key).length) {
+        this.lang = tempMode;
+        this.changeKeys(false);
         element = this.buttons.filter((v) => v.key[this.mode] === key)[loc];
-      } catch {
-        this.container.append(elementFab('p', [], 'Error: change keyboard layot to english or russian.'));
       }
     }
     return element ? element.element : null;
@@ -196,8 +195,8 @@ class Keyboard {
       if (val.length === 1) {
         this.addText(val);
       }
+      this.changeKeys(event.key === 'CapsLock');
     }
-    this.changeKeys(event.key === 'CapsLock');
   }
 
   keyUpHandler(event) {
