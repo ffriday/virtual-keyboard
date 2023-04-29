@@ -28,7 +28,8 @@ class Keyboard {
     this.hint = elementFab('span', ['container__hint'], this.hintText);
 
     // Mouse events
-    this.mouseClickEvent = this.key.addEventListener('click', (event) => (this.mouseClickHandler(event)));
+    this.mouseClickEvent = this.key.addEventListener('mousedown', (event) => (this.mouseClickHandler(event.target)));
+    this.mouseUpEvent = this.key.addEventListener('mouseup', (event) => (event.target.classList.remove('active')));
     this.textCliclEvent = this.text.addEventListener('click', (event) => (this.textClickHandler(event, this)));
 
     // Keyboard events
@@ -108,17 +109,18 @@ class Keyboard {
     const arr = Array(keyArray.length);
     keyArray.forEach((v, i) => {
       arr[i] = new Button(v, this.lang);
+      arr[i].mouseOutEvent = arr[i].element.addEventListener('mouseout', (event) => (event.target.classList.remove('active')));
     });
     return arr;
   }
 
-  mouseClickHandler(event) {
-    if (event.target.classList[0] === 'basic-key') {
-      const type = event.target.classList[1];
-      const keyClass = event.target.classList[2];
-      const { innerText } = event.target;
+  mouseClickHandler(element) {
+    if (element.classList[0] === 'basic-key') {
+      const type = element.classList[1];
+      const keyClass = element.classList[2];
+      const { innerText } = element;
       const { value } = this.text;
-      event.target.classList.toggle('active'); // Add animation class
+      element.classList.add('active'); // Add animation class
       // Letters and numbers
       if (type === 'letter' || type === 'number') {
         this.addText(innerText);
@@ -164,7 +166,7 @@ class Keyboard {
         this.shift = false;
         this.changeKeys();
       }
-      event.target.classList.toggle('active'); // Remove animation class
+      // event.target.classList.remove('active'); // Remove animation class
       this.text.focus();
       this.text.selectionStart = this.cursor;
       this.text.selectionEnd = this.cursor;
@@ -218,8 +220,7 @@ class Keyboard {
     this.caps = event.getModifierState('CapsLock');
     const element = this.getElement(event);
     if (element) {
-      element.classList.add('active');
-      element.click();
+      this.mouseClickHandler(element);
       this.changeKeys(event.key === 'CapsLock');
     }
   }
