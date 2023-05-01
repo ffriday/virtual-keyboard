@@ -1,0 +1,58 @@
+// Container
+$containerPadding: 10px
+$containerWidth: calc(721px)
+$containerHeight: 100%
+$rowGap: 6px
+
+// Keyboard
+$buttonHeight: 40px
+$smallButtonWidth: 40px
+$keyWidth: 100%
+$keyHeight: calc($buttonHeight * 5 + $rowGap * 6 + $containerPadding * 2)
+$buttonBorderRadius: 2px
+
+// Colors
+$keyboardColor: #888888
+$buttonColor: #888888
+$buttonHoverColor: #a7a7a7
+$buttonActiveColor: green
+$buttonBorderColor: #000000
+$buttonShadowColor: #000000
+$buttonStickColor: #35601f
+
+
+.container
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
+  row-gap: $rowGap
+  width: $containerWidth
+  height: $containerHeight
+  font-family: sans-serif
+
+.keyboard
+  width: $keyWidth
+  height: $keyHeight
+  background-color: $keyboardColor
+  padding: $containerPadding
+
+  border-radius: $buttonBorderRadius
+  box-shadow: 2px 2px $buttonShadowColor
+
+  display: flex
+  flex-direction: row
+  flex-wrap: wrap
+  justify-content: flex-start
+  align-items: flex-start
+  gap: $rowGap
+
+.container__text
+  outline: none
+
+.container__hint
+  color: #555555
+  font-size: 0.8em
+  text-align: center
+  &:hover
+    color: #414141
